@@ -23,7 +23,10 @@ jobs:
         run: npm ci # Ensures a clean install of dependencies
 
       - name: Verify Jest Installation
-        run: npx jest --version # Confirm Jest is installed before running tests
+        run: npx jest --version || echo "Jest is not installed"
+
+      - name: Change Jest Permissions
+        run: chmod +x node_modules/.bin/jest || echo "Jest permission issue ignored"
 
       - name: Run tests
-        run: npx jest # Use npx to run Jest, avoiding permission issues
+        run: npx jest --ci
