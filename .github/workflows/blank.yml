@@ -11,18 +11,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
       - name: Set up Node.js
         uses: actions/setup-node@v1
         with:
-          node-version: "20.15.0" # Your Node.js version
+          node-version: "20.15.0" # Match your local Node.js version
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci # Ensures a clean install of dependencies
 
-      - name: Ensure Jest is executable
-        run: chmod +x node_modules/.bin/jest # Fix permission issue
+      - name: Verify Jest Installation
+        run: npx jest --version # Confirm Jest is installed before running tests
 
       - name: Run tests
-        run: npx jest # Use 'npx jest' to avoid permission issues
+        run: npx jest # Use npx to run Jest, avoiding permission issues
